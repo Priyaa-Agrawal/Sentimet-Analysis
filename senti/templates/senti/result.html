@@ -1,16 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <title>Sentiment-Analysis</title>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+    <style>
+        body {
+            background-image: url("../media/bg3.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+    </style>
 </head>
 
 <body>
-    <h1>{{sentiment}}</h1>
-    <img src="../media/graph.png" height="300px" width="300px" alt="Graph">
-    <img src="../media/cloud.png" height="300px" width="300px" alt="WordCloud ">
+    <div id="content" class="container">
+        <h1 style="text-align: center; font-weight: bold; color: darkblue ;">Sentiment Analysis</h1>
+        <br>
+        <br>
+
+        <div id="editor"></div>
+        <center><button type="button" class="btn btn-success mb-2" id="cmd" onclick="down()">Download Report</button>
+        </center>
+        <table class="table" style="text-align: center;">
+            <thead class="thead-dark">
+                <tr style="font-weight: bolder; font-size: xx-large;  color: maroon">
+                    <th>Characterstics</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bolder;  font-size: x-large;">Sentiment</td>
+                    <td style=" font-weight: bolder; text-decoration: underline; font-size: xx-large; color:navy;">
+                        {{sentiment}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; font-size: x-large;">Bar Graph</td>
+                    <td><img src="{{graph}}" id="graph" style="width: 25rem; height: 25rem;" alt=" ..."></td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; font-size: x-large;">Word Cloud</td>
+                    <td> <img src=" {{cloud}}" id="cloud" style="width: 25rem; height: 25rem;" alt="..."></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+
+        function down() {
+
+            // You'll need to make your image into a Data URL
+            // Use http://dataurl.net/#dataurlmaker
+
+            var cloud = document.getElementById('cloud').src
+            var graph = document.getElementById('graph').src
+            var doc = new jsPDF()
+
+
+            doc.setFontSize(36)
+            doc.setTextColor(180, 0, 0)
+            doc.text(50, 25, 'Sentiment Analysis')
+            doc.setFontSize(32)
+            doc.setTextColor(0, 0, 102)
+            doc.setFont('courier')
+            doc.setFontType('bolditalic')
+            doc.text(10, 50, 'Sentiment:')
+            doc.text(75, 50, ' {{ sentiment }}')
+            doc.setFontSize(29)
+            doc.setFont('courier')
+            doc.setFontType('normal')
+            doc.setTextColor(0, 0, 0)
+            doc.text(10, 86, 'Bar Graph:')
+            doc.addImage(graph, 'PNG', 90, 73, 80, 80)
+            doc.text(10, 185, 'Word Cloud: ')
+            doc.addImage(cloud, 'PNG', 90, 182, 80, 80)
+
+            doc.save('Report.pdf');
+
+
+        }</script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

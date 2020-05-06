@@ -5,17 +5,28 @@ from nltk.tokenize import word_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
+import datetime
+import os
+from datauri import DataURI
+
+
+def imageUrl(src):
+    png_uri = DataURI.from_file(src)
+    mt = png_uri.mimetype
+    return png_uri
 
 
 # Analysing Sentiment as Positve or Negative or Neutral
+
+
 def sentiment_analyse(sentiment_text):
     score = SentimentIntensityAnalyzer().polarity_scores(sentiment_text)
     neg = score['neg']
     pos = score['pos']
     if neg > pos:
-        return 'Negative Sentiment'
+        return 'Negative Vibes'
     elif pos > neg:
-        return 'Positive Sentiment'
+        return 'Positive Vibes'
     else:
         return 'Neutral Vibes'
 
@@ -55,19 +66,27 @@ def main_function(text):
 
     # Counting words of same emotions
     w = Counter(emotion_list)
-
+    url = []
+    fname = datetime.datetime.now().strftime("%y%m%d%H%M%S")
     # Bar Graph
     fig, ax1 = plt.subplots()
     ax1.bar(w.keys(), w.values())
     fig.autofmt_xdate()
-    plt.savefig('media/graph.png')
+    srcG = f'media/input/g-{fname}.png'
+    srcC = f'media/input/c-{fname}.png'
+    plt.savefig(srcG)
     plt.close()
+    url.append(imageUrl(srcG))
 
     # WordCloud graph
     stop_words = set(STOPWORDS)
     wordcloud = WordCloud(width=800, height=800, background_color='white',
                           stopwords=stop_words, min_font_size=10).generate(text)
 
-    wordcloud.to_file('media/cloud.png')
+    wordcloud.to_file(srcC)
+    url.append(imageUrl(srcC))
 
-    return temp
+    os.remove(srcG)
+    os.remove(srcC)
+
+    return [temp, url]
