@@ -43,6 +43,7 @@
     <script>
         function load() {
             document.getElementById('ld').innerHTML = '<div class="loader"></div>'
+            document.getElementById('ld1').innerHTML = '<div class="loader"></div>'
             return true;
         }
     </script>
@@ -52,35 +53,85 @@
 <body>
     <div class="container">
 
-        <marquee behavior="alternate">
-            <h1 style="color:darkblue ; font-weight: bold;  text-shadow: 2px 2px 8px cyan;">
+        <center>
+            <h1 class="mt-4 mb-2" style="color:darkblue ; font-weight: bold;  text-shadow: 2px 2px 8px cyan;">
                 Welcome to Our website
             </h1>
-        </marquee>
+        </center>
 
-        <form method="POST" action="analysis/" onsubmit="load()" enctype="multipart/form-data">
-            {% csrf_token %}
-            <!-- <div class="form-group"> -->
-            <label for="exampleFormControlTextarea1"
-                style="font-weight: bold; font-size:xx-large; color:crimson;">Analyse
-                Your
-                text Emotion in just one click!
-                <p style="font-size: large; color:black;">You can predict emotions,sentiment of any text,file
-                    in
-                    just one step to go.
-                    upload your file or enter your text and get complete analysis of your text.
-                </p>
-            </label>
-            <textarea class="form-control" name="input_data" rows="8" style="background-color: aliceblue;"
-                placeholder="Enter your text"></textarea>
-            <br>
-            <input type="file" id="myFile" name="filename" accept=".pdf,.txt,.docx,.odt,.csv,.json,.html"
-                style="color: darkblue; font-weight: bold;">
-            <!-- </div> -->
+        <label class="my-3" for="exampleFormControlTextarea1"
+            style="font-weight: bold; font-size:x-large; color:crimson;">
+            Why choose this tool?
+            <p style="font-size: large; color:black;">
+                The key aspect of this tool is to analyze body of text for undestanding the opinion expressed by
+                it.Typically, we quantify this sentiment with positive or negative value called polarity.
+            </p>
+            <div style="font-size: large; color:black;">
+                <p> >>Polarity probability prediction.</p>
+                <p> >>Analysis of Twitter tweets.</p>
+                <p> >>Analysis through of graphical report.</p>
+                <p>>>Word Cloud generation.</p>
+                <p> >>You can easily download report after analysis.</p>
+            </div>
+        </label>
+        <button type=" button" class="btn btn-info my-2 mx-2" onclick="tweetFunction()">Tweets Sentiment
+            Analysis</button>
 
-            <button type="submit" id='ld' class="btn btn-primary">Done!</button>
-        </form>
+        <button type="button" class="btn btn-warning my-2 mx-2" onclick="textFunction()">Text Sentiment
+            Analysis</button>
+
+        <div id="show">
+            <div id="textDIV" style="display:none">
+                <form method="POST" action="textanalysis/" onsubmit="load()" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea class="form-control my-2 mx-2" name="input_data" rows="8"
+                        style="background-color: aliceblue;" placeholder="Enter your text"></textarea>
+
+                    <input type="file" id="myFile" class="my-2 mx-2" name="filename"
+                        accept=".pdf,.txt,.docx,.odt,.csv,.json,.html" style="color: darkblue; font-weight: bold;">
+
+                    <button type="submit" id='ld1' class="btn btn-primary my-2 mx-2">Done!</button>
+                </form>
+            </div>
+
+            <div id="tweetDIV" style="display:none">
+                <form method="POST" action="tweetanalysis/" onsubmit="load()" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="form-control my-2 mx-2" name="tweet" style="background-color: aliceblue;"
+                        placeholder="Enter Keyword/Tag to search about: ">
+
+                    <input class="form-control my-2 mx-2" name="tweet_no" style="background-color: aliceblue;"
+                        placeholder="Enter how many tweets to search: ">
+
+                    <button type="submit" id='ld' class="btn btn-primary my-2 mx-2">Done!</button>
+                </form>
+            </div>
+
+        </div>
+
     </div>
+
+    <script>
+        var tweet = document.getElementById("tweetDIV");
+        var text = document.getElementById("textDIV");
+        function tweetFunction() {
+            if (tweet.style.display === "none") {
+                tweet.style.display = "block";
+                text.style.display = "none";
+            } else {
+                tweet.style.display = "none";
+            }
+        }
+
+        function textFunction() {
+            if (text.style.display === "none") {
+                tweet.style.display = "none";
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
