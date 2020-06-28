@@ -47,6 +47,23 @@
       }
     </style>
     <script>
+      function manage_button(value){
+
+        var bt = document.getElementById('ld1');
+        var txt = document.getElementById('myText');
+        var file = document.getElementById('myFile');
+        var ele = document.getElementsByTagName('input'); 
+
+        if(txt.value.length >=2 || file.files.length!=0){
+          bt.disabled = false;
+        }
+        else{
+          bt.disabled = true;
+        }
+        
+
+        }
+    
       function move1() {
         var elem = document.getElementById('myBar1')
         rate = 10
@@ -196,8 +213,10 @@
               class="form-control my-2 mx-2"
               name="input_data"
               rows="8"
+              id = "myText"
               style="background-color: aliceblue;"
               placeholder="Enter your text"
+              onkeyup="manage_button(this)"
             ></textarea>
 
             <input
@@ -207,6 +226,7 @@
               name="filename"
               accept=".pdf,.txt,.docx,.odt,.csv,.json,.html"
               style="color: darkblue; font-weight: bold;"
+              onchange="manage_button(this)"
             />
             <div id="myP1">
               <div class="w3-light-grey">
@@ -219,7 +239,7 @@
               </div>
               <span id="demo1" style="text-align: center;"></span>
             </center>
-              <button type="submit" id="ld1" class="btn btn-danger my-2 mx-2">
+              <button type="submit" id="ld1" class="btn btn-danger my-2 mx-2" disabled>
                 Done!
               </button>
             </div>
@@ -241,13 +261,16 @@
               name="tweet"
               style="background-color: aliceblue;"
               placeholder="Enter Keyword/Tag to search about: "
+              required
             />
 
             <input
               class="form-control my-2 mx-2"
+              type="number"
               name="tweet_no"
               style="background-color: aliceblue;"
               placeholder="Enter how many tweets to search: "
+              required
             />
 
             <div id="myP2">
