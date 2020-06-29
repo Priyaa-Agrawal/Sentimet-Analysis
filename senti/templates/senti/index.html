@@ -18,35 +18,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 
     <title>Sentiment-Analysis</title>
-    <style>
-      body {
-        
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
 
-      .loader {
-        border: 10px solid #f3f3f3;
-        /* Light grey */
-        border-top: 10px solid #3498db;
-        /* Blue */
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 2s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
     <script>
+
+      //Input check Function
       function manage_button(value){
 
         var bt = document.getElementById('ld1');
@@ -63,9 +38,11 @@
         
 
         }
-    
-      function move1() {
-        var elem = document.getElementById('myBar1')
+      
+      //Loader Function
+      function move() {
+        var elem1 = document.getElementById('myBar1')
+        var elem2 = document.getElementById('myBar2')
         rate = 10
         var width = 0
         var id = setInterval(frame, 70)
@@ -73,37 +50,19 @@
           if (width >= 100) {
             console.log(width)
             clearInterval(id)
-            document.getElementById('myP1').className =
-            'w3-text-green w3-animate-opacity'
+            document.getElementById('myP1').className ='w3-text-green w3-animate-opacity'
+            document.getElementById('myP2').className ='w3-text-green w3-animate-opacity'
             width = 0
             id = setInterval(frame, 70-rate)
             rate += 10
             document.getElementById('myBar1').style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+            document.getElementById('myBar2').style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 
           } else {
             width++
-            elem.style.width = width + '%'          
+            elem1.style.width = width + '%'
+            elem2.style.width = width + '%'          
             document.getElementById('demo1').innerHTML = 'Analysing'
-            
-          }
-        }
-      }
-      function move2() {
-        var elem = document.getElementById('myBar2')
-        var width = 0
-        var id = setInterval(frame, 70)
-        function frame() {
-          if (width >= 100) {
-            clearInterval(id)
-            document.getElementById('myP2').className =
-              'w3-text-green w3-animate-opacity'
-            width = 0
-            id = setInterval(frame, 70-rate)
-            rate += 10
-            document.getElementById('myBar1').style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-          } else {
-            width++
-            elem.style.width = width + '%'
             document.getElementById('demo2').innerHTML = 'Analysing'
           }
         }
@@ -165,6 +124,7 @@
         </div>
       </label>
 
+      <!-- Tweet Button -->
     <div class="row">
       <div class="col-sm">
       <h3 style="color: darkblue; font-weight: bold;">Tweets Analysis</h3>
@@ -182,6 +142,7 @@
     </div>
 
 
+    <!-- Text Button -->
     <div class="row">
       <div class="col-sm">
       <h3 style="color: green; font-weight: bold;">Text Analysis</h3>
@@ -201,11 +162,11 @@
       <div id="show">
         <div id="textDIV" style="display: none;">
 
-          <!-- textanalysis-1 -->
+          <!-- textanalysis -->
           <form
             method="POST"
             action="textanalysis/"
-            onsubmit="move1();this.disabled='true'"
+            onsubmit="move();this.disabled='true'"
             enctype="multipart/form-data"
           >
             {% csrf_token %}
@@ -252,7 +213,7 @@
           <form
             method="POST"
             action="tweetanalysis/"
-            onsubmit="move2();this.disabled='true'"
+            onsubmit="move();this.disabled='true'"
             enctype="multipart/form-data"
           >
             {% csrf_token %}
@@ -288,13 +249,13 @@
                 Done!
               </button>
             </div>
- 
           </form>
         </div>
       </div>
     </div>
 
     <script>
+      //Function to Display
       var tweet = document.getElementById('tweetDIV')
       var text = document.getElementById('textDIV')
       function tweetFunction() {

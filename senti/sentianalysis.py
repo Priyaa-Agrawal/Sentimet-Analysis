@@ -9,7 +9,7 @@ import datetime
 import os
 from datauri import DataURI
 
-
+#generating image url
 def imageUrl(src):
     png_uri = DataURI.from_file(src)
     mt = png_uri.mimetype

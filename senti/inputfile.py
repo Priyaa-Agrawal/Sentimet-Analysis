@@ -1,7 +1,7 @@
 import textract
 import os
 
-
+#extractin text from files
 def all_file(src):
     text = textract.process(src, encoding='ascii')
     print(text)

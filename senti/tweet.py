@@ -7,6 +7,7 @@ import os
 from . import secret as sc
 
 
+#getting image urls
 def imageUrl(src):
     png_uri = DataURI.from_file(src)
     mt = png_uri.mimetype
@@ -53,17 +54,13 @@ def tweetanalysis(searchTerm,NoOfTerms):
         analysis = TextBlob(tweet.text)
         # print(analysis.sentiment)  # print tweet's polarity
         polarity += analysis.sentiment.polarity  # adding up polarities to find the average later
-        # print('polarity-->',polarity)
-        # print('analysis.sentiment.polarity-->',analysis.sentiment.polarity)
+        
         if (analysis.sentiment.polarity == 0):  # adding reaction of how people are reacting to find average later
             neutral += 1
-            # print('netural-->',neutral)
         elif (analysis.sentiment.polarity > 0 and analysis.sentiment.polarity <= 1):
             positive += 1
-            # print('positive-->',positive)
         elif (analysis.sentiment.polarity >= -1 and analysis.sentiment.polarity < 0):
             negative += 1
-            # print('negative-->',negative)
 
 
     # Write to csv and close csv file
@@ -75,9 +72,7 @@ def tweetanalysis(searchTerm,NoOfTerms):
     positive_percentage = percentage(positive, NoOfTerms)
     negative_percentage = percentage(negative, NoOfTerms)
     neutral_percentage = percentage(neutral, NoOfTerms)
-    # print('neutral_percentage -->',neutral_percentage)
-    # print('positive_percentage-->',positive_percentage)
-    # print('negative_percentage-->',negative_percentage)
+
     
     # finding average reaction
     polarity_percentage = polarity / NoOfTerms
@@ -118,7 +113,7 @@ def percentage(part, whole):
     return format(temp, '.2f')
 
 def plotPieChart(positive, negative, neutral, searchTerm, noOfSearchTerms):
-    
+    #Plotting PieChart
     fname = datetime.datetime.now().strftime("%y%m%d%H%M%S")
     labels = ['Positive [' + str(positive) + '%]', 'Neutral [' + str(neutral) + '%]',
                 'Negative [' + str(negative) + '%]']
