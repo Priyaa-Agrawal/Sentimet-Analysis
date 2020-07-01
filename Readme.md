@@ -1,8 +1,4 @@
 ---
-
-
----
-
 <h1 id="sentiment-analysis">Sentiment Analysis</h1>
 <p><img src="/Demo/demo.gif" alt=""></p>
 <p><em>The key aspect of this tool is to analyze body of text and predict the emotions expressed as positive, negative, or neutral.</em></p>
