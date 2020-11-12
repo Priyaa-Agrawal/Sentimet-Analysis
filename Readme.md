@@ -27,6 +27,6 @@
 <li>Now all done and run the django server <code>python3 manage.py runserver</code>.</li>
 </ol>
 <h2 id="visit-the-link">Visit the Link</h2>
-<p><a href="http://ec2-52-90-40-194.compute-1.amazonaws.com:4000">Sentiment-Analysis</a></p>
+<p><a href="http://ec2-54-146-249-93.compute-1.amazonaws.com:4444">Sentiment-Analysis</a></p>
 <p><strong>Please do ⭐  the repository, if it helped you in any way.</strong></p>
 
