@@ -11,7 +11,7 @@ EbookLib==0.17.1
 extract-msg==0.23.1
 idna==2.9
 IMAPClient==2.1.0
-joblib==0.15.1
+joblib==1.2.0
 kiwisolver==1.2.0
 lxml==4.5.1
 matplotlib==3.2.2
